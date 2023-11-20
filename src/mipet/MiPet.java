@@ -15,8 +15,10 @@ public class MiPet {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        Tipo_Mascota tipo=new Tipo_Mascota();
-        //chupalo
+        Tipo_Mascota tipo = new Tipo_Mascota();
+        
+        // Temporal
+        new FormCliente().setVisible(true);
     }
     
 }
