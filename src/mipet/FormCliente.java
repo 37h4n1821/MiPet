@@ -12,7 +12,6 @@ import java.util.regex.Pattern;
  * @author Ethan Leiva 004D 07/09/2023
  */
 public class FormCliente extends javax.swing.JFrame {
-
     /**
      * Creates new form Inicio
      */
@@ -132,23 +131,35 @@ public class FormCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNombreActionPerformed
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
+        String run = null;
+        char dv = 0;
         String rut = txtRut.getText();
         String nombre = txtNombre.getText();
+        
+        boolean flag = false;
         
         Pattern pattern_rut = Pattern.compile("(\\d{2}\\.?\\d{3}\\.?\\d{3})-([\\dK])");
         Matcher matcher_rut = pattern_rut.matcher(rut);
         
         if (matcher_rut.matches()) {
-            String run = matcher_rut.group(1).replaceAll("\\.", "");
-            String dv = matcher_rut.group(2);
+            run = matcher_rut.group(1).replaceAll("\\.", "");
+            dv = matcher_rut.group(2).charAt(0);
             
-            System.out.println(run+"-"+dv);
+            flag = true;
         } else {
-            System.out.println("Formato invalido");
+            // VENTANA APARTE DE ERROR
+        }
+        
+        String[] nombreCompleto = nombre.split(" ");
+        
+        if (nombreCompleto.length == 3 && flag) {
+            Cliente test = new Cliente(run,dv,nombreCompleto[0],nombreCompleto[1],nombreCompleto[2]);
+            System.out.println(test.getApe1());
+        } else {
+            // VENTANA APARTE DE ERROR
         }
     }//GEN-LAST:event_btnConfirmarActionPerformed
-    
-    
+
     
     /**
      * @param args the command line arguments
