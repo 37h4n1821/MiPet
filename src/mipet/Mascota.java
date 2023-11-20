@@ -17,19 +17,19 @@ public class Mascota {
     private char sexo;
     private boolean vigente;
     private Tipo_Mascota tipo;
-    private Cliente rut_cliente;
+    private Cliente cliente;
 
     public Mascota() {
     }
 
-    public Mascota(String _id, String nombre, Date fec_nac, char sexo, boolean vigente, Tipo_Mascota tipo, Cliente rut_cliente) {
+    public Mascota(String _id, String nombre, Date fec_nac, char sexo, boolean vigente, Tipo_Mascota tipo, Cliente cliente) {
         this._id = _id;
         this.nombre = nombre;
         this.fec_nac = fec_nac;
         this.sexo = sexo;
         this.vigente = vigente;
         this.tipo = tipo;
-        this.rut_cliente = rut_cliente;
+        this.cliente = cliente;
     }
 
     public String get_id() {
@@ -80,11 +80,17 @@ public class Mascota {
         this.tipo = tipo;
     }
 
-    public Cliente getRut_cliente() {
-        return rut_cliente;
+    public Cliente getCliente() {
+        return cliente;
     }
 
-    public void setRut_cliente(Cliente rut_cliente) {
-        this.rut_cliente = rut_cliente;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
+
+    @Override
+    public String toString() {
+        return "Mascota{" + "_id=" + _id + ", nombre=" + nombre + ", fec_nac=" + fec_nac + ", sexo=" + sexo + ", vigente=" + vigente + ", tipo=" + tipo + ", cliente=" + cliente + '}';
+    }
+    
 }

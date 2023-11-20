@@ -18,8 +18,17 @@ public class Cliente {
 
     public Cliente() {
     }
-
+    
     public Cliente(String rut, char dv, String nombre, String ape1, String ape2) {
+        this.rut = rut;
+        this.dv = dv;
+        this.nombre = nombre;
+        this.ape1 = ape1;
+        this.ape2 = ape2;
+    }
+
+    public Cliente(String _id,String rut, char dv, String nombre, String ape1, String ape2) {
+        this._id = _id;
         this.rut = rut;
         this.dv = dv;
         this.nombre = nombre;
@@ -74,8 +83,10 @@ public class Cliente {
     public void setApe2(String ape2) {
         this.ape2 = ape2;
     }
-    
-    
-    
+
+    @Override
+    public String toString() {
+        return "Cliente{" + "_id=" + _id + ", rut=" + rut + ", dv=" + dv + ", nombre=" + nombre + ", ape1=" + ape1 + ", ape2=" + ape2 + '}';
+    }
     
 }

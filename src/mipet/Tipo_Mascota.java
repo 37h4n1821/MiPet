@@ -36,6 +36,11 @@ public class Tipo_Mascota {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
+
+    @Override
+    public String toString() {
+        return "Tipo_Mascota{" + "_id=" + _id + ", descripcion=" + descripcion + '}';
+    }
     
     
 }
