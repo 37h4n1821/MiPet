@@ -12,11 +12,11 @@ import javax.swing.JOptionPane;
  *
  * @author Ethan Leiva 004D 07/09/2023
  */
-public class FormCliente extends javax.swing.JFrame {
+public class FormMascota extends javax.swing.JFrame {
     /**
      * Creates new form Inicio
      */
-    public FormCliente() {
+    public FormMascota() {
         initComponents();
     }
 
@@ -83,7 +83,7 @@ public class FormCliente extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtRut, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtRut, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(32, 32, 32))
         );
         jPanel1Layout.setVerticalGroup(
@@ -132,39 +132,7 @@ public class FormCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNombreActionPerformed
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
-        String run = null;
-        char dv = 0;
-        String rut = txtRut.getText();
-        String nombre = txtNombre.getText();
         
-        boolean flag = false;
-        
-        Pattern pattern_rut = Pattern.compile("(\\d{2}\\.?\\d{3}\\.?\\d{3})-([\\dK])");
-        Matcher matcher_rut = pattern_rut.matcher(rut);
-        
-        if (matcher_rut.matches()) {
-            run = matcher_rut.group(1).replaceAll("\\.", "");
-            dv = matcher_rut.group(2).charAt(0);
-            
-            flag = true;
-        } else {
-            JOptionPane.showMessageDialog(null, "[Rut invalido]\nEj: 12.345.678-K", "Error al ingresar", JOptionPane.ERROR_MESSAGE);
-        }
-        
-        String[] nombreCompleto = nombre.split(" ");
-        
-        if (nombreCompleto.length == 3 && flag) {
-            Cliente test = new Cliente(run,dv,nombreCompleto[0],nombreCompleto[1],nombreCompleto[2]);
-            
-            // Test temporal
-            System.out.println(test.getRut());
-            System.out.println(test.getDv());
-            System.out.println(test.getNombre());
-            System.out.println(test.getApe1());
-            System.out.println(test.getApe2());
-        } else if (flag) {
-            JOptionPane.showMessageDialog(null, "[Nombre invalido]\nEj: Nombre Apellido Apellido", "Error al ingresar", JOptionPane.ERROR_MESSAGE);
-        }
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
     
@@ -185,21 +153,23 @@ public class FormCliente extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FormCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormMascota.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FormCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormMascota.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FormCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormMascota.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FormCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormMascota.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FormCliente().setVisible(true);
+                new FormMascota().setVisible(true);
             }
         });
     }

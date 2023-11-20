@@ -63,7 +63,7 @@
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="txtNombre" min="-2" pref="200" max="-2" attributes="0"/>
-                              <Component id="txtRut" min="-2" pref="130" max="-2" attributes="0"/>
+                              <Component id="txtRut" min="-2" pref="152" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
