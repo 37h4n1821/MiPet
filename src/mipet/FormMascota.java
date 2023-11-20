@@ -4,8 +4,10 @@
  */
 package mipet;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 import javax.swing.JOptionPane;
 
 /**
@@ -146,9 +148,9 @@ public class FormMascota extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblVigente)
                     .addComponent(rbtnVigente))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 145, Short.MAX_VALUE)
                 .addComponent(btnConfirmar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(15, 15, 15))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -158,14 +160,14 @@ public class FormMascota extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -180,15 +182,39 @@ public class FormMascota extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNombreActionPerformed
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
-        System.out.println(txtCodigo.getText());
-        System.out.println(txtNombre.getText());
-        System.out.println(sprFecha.getValue());
-        System.out.println(cbxSexo.getSelectedItem());
-        System.out.println(rbtnVigente.isSelected());
+        SimpleDateFormat formatoOrg = new SimpleDateFormat("E MMM dd HH:mm:ss z yyyy", Locale.US);
+        boolean flag = false;
         
-        if (true /* no existe el codigo */) {
+        String codigo = txtCodigo.getText();
+        String nombre = txtNombre.getText();
+        Date fechaNac = new Date();
+        char sexo = cbxSexo.getSelectedItem().toString().charAt(0);
+        boolean vigente = rbtnVigente.isSelected();
+        Tipo_Mascota tipo = new Tipo_Mascota();
+        Cliente cliente = new Cliente();
+        
+        try {
+            fechaNac = formatoOrg.parse(sprFecha.getValue().toString());
             
-        } else {
+            flag = true;
+        } catch (ParseException e) {
+            JOptionPane.showMessageDialog(null, "           [Error en la fecha]\n"+e, "Error al ingresar", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        if (flag && (codigo.isEmpty() || nombre.isEmpty())) {
+            JOptionPane.showMessageDialog(null, "              [Error de ingreso]\nLos campos no pueden estar en blanco", "Error al ingresar", JOptionPane.ERROR_MESSAGE);
+            flag = false;
+        }
+        
+        if (flag/*&& no existe el codigo */) {
+            Mascota test = new Mascota(codigo, nombre, fechaNac,sexo,vigente,tipo,cliente);
+            
+            System.out.println(test.get_id());
+            System.out.println(test.getNombre());
+            System.out.println(test.getFec_nac());
+            System.out.println(test.getSexo());
+            System.out.println(test.isVigente());
+        } else if (flag) {
             JOptionPane.showMessageDialog(null, "           [Código en uso]\n> Seleccione otro código", "Error al ingresar", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnConfirmarActionPerformed
