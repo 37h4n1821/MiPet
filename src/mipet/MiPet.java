@@ -27,8 +27,6 @@ public class MiPet {
                 }
             }
         });
-        
-        new FormMascota().setVisible(true);
     }
     
 }
