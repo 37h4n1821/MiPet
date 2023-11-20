@@ -32,10 +32,17 @@ public class Inicio extends javax.swing.JFrame {
     
     public MiPetAPI api;
     
+    class NoEditableTableModel extends DefaultTableModel {
+    @Override
+    public boolean isCellEditable(int row, int column) {
+        return false;
+    }
+}
+    
     public void actualizar_datos() throws IOException{
         
         api=new MiPetAPI("http://127.0.0.1","/API/Mascota");
-        DefaultTableModel DT=new DefaultTableModel();
+        DefaultTableModel DT=new NoEditableTableModel();
         DT.addColumn("Nombre Mascota");
         DT.addColumn("Tipo Mascota");
         DT.addColumn("Rut Cliente");
