@@ -154,6 +154,13 @@ public class FormCliente extends javax.swing.JFrame {
         
         if (nombreCompleto.length == 3 && flag) {
             Cliente test = new Cliente(run,dv,nombreCompleto[0],nombreCompleto[1],nombreCompleto[2]);
+            
+            // Test temporal
+            System.out.println(test.getRut());
+            System.out.println(test.getDv());
+            System.out.println(test.getNombre());
+            System.out.println(test.getApe1());
+            System.out.println(test.getApe2());
         } else {
             // VENTANA APARTE DE ERROR
         }
