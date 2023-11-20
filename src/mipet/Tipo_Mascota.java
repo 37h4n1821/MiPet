@@ -10,23 +10,23 @@ package mipet;
  * @author Ethan Leiva 004D 07/09/2023
  */
 public class Tipo_Mascota {
-    private int id;
+    private String _id;
     private String descripcion;
 
     public Tipo_Mascota() {
     }
     
-    public Tipo_Mascota(int id, String descripcion) {
-        this.id = id;
+    public Tipo_Mascota(String _id, String descripcion) {
+        this._id = _id;
         this.descripcion = descripcion;
     }
 
-    public int getId() {
-        return id;
+    public String get_id() {
+        return _id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void set_id(String _id) {
+        this._id = _id;
     }
 
     public String getDescripcion() {

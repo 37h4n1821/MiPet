@@ -11,7 +11,7 @@ import java.util.Date;
  * @author Vicente Oyarzún 004D 19/11/2023
  */
 public class Mascota {
-    private int codigo;
+    private String _id;
     private String nombre; //limitar de 20 caracteres
     private Date fec_nac;
     private char sexo;
@@ -22,8 +22,8 @@ public class Mascota {
     public Mascota() {
     }
 
-    public Mascota(int codigo, String nombre, Date fec_nac, char sexo, boolean vigente, Tipo_Mascota tipo, Cliente rut_cliente) {
-        this.codigo = codigo;
+    public Mascota(String _id, String nombre, Date fec_nac, char sexo, boolean vigente, Tipo_Mascota tipo, Cliente rut_cliente) {
+        this._id = _id;
         this.nombre = nombre;
         this.fec_nac = fec_nac;
         this.sexo = sexo;
@@ -32,12 +32,12 @@ public class Mascota {
         this.rut_cliente = rut_cliente;
     }
 
-    public int getCodigo() {
-        return codigo;
+    public String get_id() {
+        return _id;
     }
 
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
+    public void set_id(String _id) {
+        this._id = _id;
     }
 
     public String getNombre() {
