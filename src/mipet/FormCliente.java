@@ -148,7 +148,7 @@ public class FormCliente extends javax.swing.JFrame {
             
             flag = true;
         } else {
-            JOptionPane.showMessageDialog(null, "[Rut invalido]\nEj: 12.345.678-K", "Error al ingresar", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "           [Rut invalido]\nEj: 12.345.678-K", "Error al ingresar", JOptionPane.ERROR_MESSAGE);
         }
         
         String[] nombreCompleto = nombre.split(" ");
@@ -163,7 +163,7 @@ public class FormCliente extends javax.swing.JFrame {
             System.out.println(test.getApe1());
             System.out.println(test.getApe2());
         } else if (flag) {
-            JOptionPane.showMessageDialog(null, "[Nombre invalido]\nEj: Nombre Apellido Apellido", "Error al ingresar", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "           [Nombre invalido]\nEj: Nombre Apellido Apellido", "Error al ingresar", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
