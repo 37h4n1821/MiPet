@@ -7,6 +7,7 @@ package mipet;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -18,13 +19,17 @@ public class MiPet {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
             public void run() {
+                Inicio formulario1;
                 try {
-                    new Inicio().setVisible(true);
+                    formulario1 = new Inicio();
+                    formulario1.setVisible(true);
                 } catch (IOException ex) {
-                    Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(MiPet.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                
             }
         });
     }

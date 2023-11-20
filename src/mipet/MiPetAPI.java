@@ -170,6 +170,31 @@ public class MiPetAPI {
         
     }
     
+    public boolean actualizar(Mascota sb) throws IOException {
+        
+        URL url = new URL(servidor + rutaAPI+"/upd/"+sb.get_id());
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+        connection.setRequestMethod("POST");
+        connection.setDoOutput(true);
+        connection.setRequestProperty("Content-Type", "application/json");
+
+        try (OutputStream os = connection.getOutputStream();
+             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"))) {
+            
+            Gson gson = new Gson();
+            Gson gson2 = new Gson();
+            String objetoJSON = gson.toJson(sb);
+            System.out.println(objetoJSON);
+            writer.write(objetoJSON);
+        }
+
+        int responseCode = connection.getResponseCode();
+        
+        return responseCode==200;
+        
+    }
+    
     
     public boolean eliminar(Mascota sb) throws IOException {
         

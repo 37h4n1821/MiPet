@@ -9,7 +9,11 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -35,7 +39,7 @@ public class Inicio extends javax.swing.JFrame {
     class NoEditableTableModel extends DefaultTableModel {
     @Override
     public boolean isCellEditable(int row, int column) {
-        return false;
+        return column==4 || column==5;
     }
 }
     
@@ -47,29 +51,74 @@ public class Inicio extends javax.swing.JFrame {
         DT.addColumn("Tipo Mascota");
         DT.addColumn("Rut Cliente");
         DT.addColumn("Estado");
-        DT.addColumn("Opciones");
+        DT.addColumn("Editar");
+        DT.addColumn("Eliminar");
         
-        Object[] fila=new Object[5];
+        Object[] fila=new Object[6];
         for (Mascota mascota:api.ObtenerMascotas()) { 
             fila[0]=mascota.getNombre();
             fila[1]=mascota.getTipo().getDescripcion();
             fila[2]=mascota.getCliente().getRut()+"-"+mascota.getCliente().getDv();
             fila[3]=((mascota.isVigente())? "Vigente":"No vigente");
-            JButton boton = new JButton("Mostrar Información");
-            boton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    // Llama a la función con el nombre de la mascota como parámetro
-                    System.out.println(e.toString());
-                }
-            });
-            fila[4] = boton;
-        
+            fila[4]=("Editar");
+            fila[5]=("Eliminar");
+            
             DT.addRow(fila);
         }
+        
         jTable1.setModel(DT);
+        ButtonColumn buttonColumn = new ButtonColumn(jTable1, Editar, 4);
+        ButtonColumn buttonColumn2 = new ButtonColumn(jTable1, Eliminar, 5);
         
     }
+    
+    Action Editar = new AbstractAction() {
+    public void actionPerformed(ActionEvent e) {
+        JTable table = (JTable)e.getSource();
+        int modelRow = Integer.valueOf( e.getActionCommand() );
+        
+        try {
+            Mascota mascota=new MiPetAPI("http://127.0.0.1","/API/Mascota").ObtenerMascotas().get(modelRow);
+            
+            MascotaDatos formulario2 = new MascotaDatos(mascota);
+            formulario2.setVisible(true);
+            this.setEnabled(false);
+            
+        } catch (IOException ex) {
+            try {
+                Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "Error al obtener la información de la Base de Datos");
+                actualizar_datos();
+            } catch (IOException ex1) {
+                Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        }
+        
+        
+    }
+};
+    
+    Action Eliminar = new AbstractAction() {
+    public void actionPerformed(ActionEvent e) {
+        JTable table = (JTable)e.getSource();
+        int modelRow = Integer.valueOf( e.getActionCommand() );
+        
+        try {
+            Mascota mascota=new MiPetAPI("http://127.0.0.1","/API/Mascota/del").ObtenerMascotas().get(modelRow);
+            
+        } catch (IOException ex) {
+            try {
+                Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "Error al obtener la información de la Base de Datos");
+                actualizar_datos();
+            } catch (IOException ex1) {
+                Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        }
+        
+        
+    }
+};
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -101,28 +150,10 @@ public class Inicio extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nombre", "Tipo Mascota", "Rut Cliente", "Opciones"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
             }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        ));
         jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(3).setResizable(false);
-        }
 
         jLabel1.setFont(new java.awt.Font("Verdana", 0, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -153,15 +184,15 @@ public class Inicio extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(Actualizar))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 713, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 87, Short.MAX_VALUE)))
+                        .addGap(0, 79, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(22, 22, 22)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -174,17 +205,17 @@ public class Inicio extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addGap(17, 17, 17)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(24, 24, 24))
         );
 
         pack();
