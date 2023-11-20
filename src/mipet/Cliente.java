@@ -9,6 +9,7 @@ package mipet;
  * @author Ethan Leiva
  */
 public class Cliente {
+    private String _id;
     private String rut;
     private char dv;
     private String nombre;
@@ -25,7 +26,15 @@ public class Cliente {
         this.ape1 = ape1;
         this.ape2 = ape2;
     }
+    
+    public String get_id() {
+        return _id;
+    }
 
+    public void set_id(String _id) {
+        this._id = _id;
+    }
+    
     public String getRut() {
         return rut;
     }

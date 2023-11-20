@@ -14,9 +14,11 @@ public class MiPet {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-        Tipo_Mascota tipo=new Tipo_Mascota();
-        //chupalo
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new Inicio().setVisible(true);
+            }
+        });
     }
     
 }
