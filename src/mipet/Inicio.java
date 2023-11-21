@@ -6,6 +6,8 @@ package mipet;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,6 +17,8 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import net.coderazzi.filters.gui.AutoChoices;
+import net.coderazzi.filters.gui.TableFilterHeader;
 
 /**
  *
@@ -74,13 +78,15 @@ public class Inicio extends javax.swing.JFrame {
             DT.addColumn("Apellidos");
             DT.addColumn("Rut");
             DT.addColumn("Cantidad Mascotas Asociadas");
+            DT.addColumn("Eliminar");
 
-            Object[] fila=new Object[4];
+            Object[] fila=new Object[5];
             for (Cliente cliente:api.ObtenerClientes()) { 
                 fila[0]=cliente.getNombre();
                 fila[1]=cliente.getApe1()!=null?cliente.getApe1():""+" "+cliente.getApe2()!=null?cliente.getApe2():"";
                 fila[2]=cliente.getRut()+"-"+cliente.getDv();
                 fila[3]=api.CantidadMascotas(cliente);
+                fila[4]=("Eliminar");
 
                 DT.addRow(fila);
             }
@@ -88,10 +94,17 @@ public class Inicio extends javax.swing.JFrame {
         
         
         jTable1.setModel(DT);
+        jTable1.setAutoCreateRowSorter(true);
         if (DatosCombo.getSelectedItem()=="Mascotas"){
             ButtonColumn buttonColumn = new ButtonColumn(jTable1, Editar, 4);
             ButtonColumn buttonColumn2 = new ButtonColumn(jTable1, Eliminar, 5);
+        }else{
+            ButtonColumn buttonColumn2 = new ButtonColumn(jTable1, Eliminar, 4);
         }
+        TableFilterHeader filterHeader = new TableFilterHeader(jTable1, AutoChoices.ENABLED);
+
+
+        
         
         
     }
@@ -105,8 +118,15 @@ public class Inicio extends javax.swing.JFrame {
             Mascota mascota=new MiPetAPI("http://127.0.0.1","/API/Mascota").ObtenerMascotas().get(modelRow);
             
             MascotaDatos formulario2 = new MascotaDatos(mascota);
+            formulario2.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosing(WindowEvent e) {
+                    cerrarsubFormulario();
+                }
+            });
+            
             formulario2.setVisible(true);
-            this.setEnabled(false);
+            blockthis();
             
         } catch (IOException ex) {
             try {
@@ -128,7 +148,27 @@ public class Inicio extends javax.swing.JFrame {
         int modelRow = Integer.valueOf( e.getActionCommand() );
         
         try {
-            Mascota mascota=new MiPetAPI("http://127.0.0.1","/API/Mascota/del").ObtenerMascotas().get(modelRow);
+            if (DatosCombo.getSelectedItem()=="Mascotas"){
+                Mascota mascota=new MiPetAPI("http://127.0.0.1","/API/Mascota").ObtenerMascotas().get(modelRow);
+                int result = JOptionPane.showConfirmDialog(null,"Deseas Eliminar toda información de: "+mascota.getNombre(), "Eliminación Mascota",
+                   JOptionPane.YES_NO_OPTION,
+                   JOptionPane.QUESTION_MESSAGE);
+                if(result == JOptionPane.YES_OPTION){
+                   JOptionPane.showMessageDialog(null, "Eliminado información");
+                }else if (result == JOptionPane.NO_OPTION){
+                   JOptionPane.showMessageDialog(null, "Entendido no se eliminara información");
+                }
+            }else{
+                Cliente cliente=new MiPetAPI("http://127.0.0.1","/API/Cliente").ObtenerClientes().get(modelRow);
+                int result = JOptionPane.showConfirmDialog(null,"Deseas Eliminar toda información de: "+cliente.getNombre()+"\nAdemás se eliminaran todas las mascotas asociadas", "Eliminación Mascota",
+                   JOptionPane.YES_NO_OPTION,
+                   JOptionPane.QUESTION_MESSAGE);
+                if(result == JOptionPane.YES_OPTION){
+                   JOptionPane.showMessageDialog(null, "Eliminado información");
+                }else if (result == JOptionPane.NO_OPTION){
+                   JOptionPane.showMessageDialog(null, "Entendido no se eliminara información");
+                }
+            }
             
         } catch (IOException ex) {
             try {
@@ -285,13 +325,30 @@ public class Inicio extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_DatosComboItemStateChanged
 
+   
+    private void cerrarsubFormulario(){
+        this.setEnabled(true);
+        this.toFront();
+    }
+    
+    private void blockthis(){
+        this.setEnabled(false);
+        this.toBack();
+    }
+   
     private void AddBotonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AddBotonMouseClicked
         // TODO add your handling code here:
         try {
         if (DatosCombo.getSelectedItem()=="Mascotas"){
             MascotaDatos formulario2 = new MascotaDatos();
+            formulario2.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosing(WindowEvent e) {
+                    cerrarsubFormulario();
+                }
+            });
             formulario2.setVisible(true);
-            this.setEnabled(false);
+            blockthis();
             
         }else{
             

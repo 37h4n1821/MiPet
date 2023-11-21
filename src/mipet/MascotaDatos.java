@@ -25,16 +25,22 @@ public class MascotaDatos extends javax.swing.JFrame {
     public MascotaDatos() throws IOException {
         initComponents();
         obtener_tipos();
+        obtener_dueños();
         establecerDatos();
         mascota=null;
-        setDefaultCloseOperation(cerrar());
+        setDefaultCloseOperation(MascotaDatos.DISPOSE_ON_CLOSE);
+        ComboDueños.setEnabled(true);
+        Actualizar.setText("Agregar Mascota");
     }
     public MascotaDatos(Mascota mascota) throws IOException {
         initComponents();
         obtener_tipos();
+        obtener_dueños();
         establecerDatos(mascota);
         setDefaultCloseOperation(MascotaDatos.DISPOSE_ON_CLOSE);
         this.mascota=mascota;
+        ComboDueños.setEnabled(false);
+        Actualizar.setText("Actualizar Datos");
     }
     
     
@@ -43,13 +49,14 @@ public class MascotaDatos extends javax.swing.JFrame {
     
     
     public void establecerDatos(){
-        Lista_Tipos.setSelectedItem(-1);
         InformacionMenu.setText("Menú para agregar Mascota");
         Field_Nombre.setText("");
-        Combo_Sexo.setSelectedItem(-1);
+        Combo_Sexo.setSelectedItem(null);
         Check_Estado.setSelected(false);
-        Label_Rut.setText("");
+        ComboDueños.setSelectedItem(null);
         Fecha_Nacimiento.setDateToToday();
+        Lista_Tipos.setSelectedItem(null);
+        TxtDueño.setText("Seleccione rut cliente a enlazar:");
         
     }
     
@@ -59,8 +66,9 @@ public class MascotaDatos extends javax.swing.JFrame {
         Field_Nombre.setText(mascota.getNombre());
         Combo_Sexo.setSelectedItem(mascota.getSexo()=='M'?"Masculino":"Femenino");
         Check_Estado.setSelected(mascota.isVigente());
-        Label_Rut.setText(mascota.getCliente().getRut()+"-"+mascota.getCliente().getDv());
+        ComboDueños.setSelectedItem(mascota.getCliente().getRut()+"-"+mascota.getCliente().getDv());
         Fecha_Nacimiento.setDate(mascota.getFec_nac().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+        TxtDueño.setText("Rut Cliente Asociado:");
         
     }
     
@@ -71,6 +79,18 @@ public class MascotaDatos extends javax.swing.JFrame {
         for (Tipo_Mascota tipo:api.ObtenerTipos()){
             Lista_Tipos.addItem(tipo.getDescripcion());
         }
+
+        
+    }
+     
+     public void obtener_dueños() throws IOException{
+        
+        api=new MiPetAPI("http://127.0.0.1","/API/Cliente");
+        ComboDueños.removeAllItems();
+        for (Cliente cliente:api.ObtenerClientes()){
+            ComboDueños.addItem(cliente.getRut()+"-"+cliente.getDv());
+        }
+        ComboDueños.addItem("Agregar cliente");
 
         
     }
@@ -88,7 +108,6 @@ public class MascotaDatos extends javax.swing.JFrame {
         InformacionMenu = new javax.swing.JLabel();
         Label_Sexo = new javax.swing.JLabel();
         Label_FecNac = new javax.swing.JLabel();
-        Label_Dueño = new javax.swing.JLabel();
         LabelNombre = new javax.swing.JLabel();
         Label_Vigente1 = new javax.swing.JLabel();
         Label_Tipo = new javax.swing.JLabel();
@@ -96,22 +115,21 @@ public class MascotaDatos extends javax.swing.JFrame {
         Check_Estado = new javax.swing.JCheckBox();
         Combo_Sexo = new javax.swing.JComboBox<>();
         Lista_Tipos = new javax.swing.JComboBox<>();
-        Label_Rut = new javax.swing.JLabel();
         Actualizar = new javax.swing.JButton();
         Resetear = new javax.swing.JButton();
         Fecha_Nacimiento = new com.github.lgooddatepicker.components.DatePicker();
+        ComboDueños = new javax.swing.JComboBox<>();
+        TxtDueño = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        InformacionMenu.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         InformacionMenu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         InformacionMenu.setText("Información de: ");
+        InformacionMenu.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         Label_Sexo.setText("Sexo:");
 
         Label_FecNac.setText("Fecha de nacimiento:");
-
-        Label_Dueño.setText("Rut Dueño:");
 
         LabelNombre.setText("Nombre:");
 
@@ -129,8 +147,6 @@ public class MascotaDatos extends javax.swing.JFrame {
         Combo_Sexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Masculino", "Femenino" }));
         Combo_Sexo.setSelectedIndex(-1);
 
-        Label_Rut.setText("00000000");
-
         Actualizar.setText("Actualizar Datos");
         Actualizar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -145,6 +161,10 @@ public class MascotaDatos extends javax.swing.JFrame {
             }
         });
 
+        ComboDueños.setEnabled(false);
+
+        TxtDueño.setText("Rut cliente:");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -153,24 +173,23 @@ public class MascotaDatos extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(InformacionMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(Label_FecNac, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
-                        .addComponent(LabelNombre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Label_Sexo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Label_Dueño, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Label_Vigente1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Label_Tipo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(Actualizar))
-                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(Label_FecNac, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
+                    .addComponent(LabelNombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Label_Sexo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Label_Vigente1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Label_Tipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Actualizar)
+                    .addComponent(TxtDueño, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(ComboDueños, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Combo_Sexo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Lista_Tipos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Check_Estado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Label_Rut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Resetear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Field_Nombre)
-                    .addComponent(Fecha_Nacimiento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(Fecha_Nacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -203,9 +222,9 @@ public class MascotaDatos extends javax.swing.JFrame {
                     .addComponent(Lista_Tipos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Label_Dueño, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Label_Rut, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                    .addComponent(TxtDueño)
+                    .addComponent(ComboDueños, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Actualizar)
                     .addComponent(Resetear))
@@ -294,19 +313,19 @@ public class MascotaDatos extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Actualizar;
     private javax.swing.JCheckBox Check_Estado;
+    private javax.swing.JComboBox<String> ComboDueños;
     private javax.swing.JComboBox<String> Combo_Sexo;
     private com.github.lgooddatepicker.components.DatePicker Fecha_Nacimiento;
     private javax.swing.JTextField Field_Nombre;
     private javax.swing.JLabel InformacionMenu;
     private javax.swing.JLabel LabelNombre;
-    private javax.swing.JLabel Label_Dueño;
     private javax.swing.JLabel Label_FecNac;
-    private javax.swing.JLabel Label_Rut;
     private javax.swing.JLabel Label_Sexo;
     private javax.swing.JLabel Label_Tipo;
     private javax.swing.JLabel Label_Vigente1;
     private javax.swing.JComboBox<String> Lista_Tipos;
     private javax.swing.JButton Resetear;
+    private javax.swing.JLabel TxtDueño;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
