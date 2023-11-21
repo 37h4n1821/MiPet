@@ -25,7 +25,9 @@ public class MascotaDatos extends javax.swing.JFrame {
     public MascotaDatos() throws IOException {
         initComponents();
         obtener_tipos();
-        setDefaultCloseOperation(MascotaDatos.DISPOSE_ON_CLOSE);
+        establecerDatos();
+        mascota=null;
+        setDefaultCloseOperation(cerrar());
     }
     public MascotaDatos(Mascota mascota) throws IOException {
         initComponents();
@@ -34,8 +36,22 @@ public class MascotaDatos extends javax.swing.JFrame {
         setDefaultCloseOperation(MascotaDatos.DISPOSE_ON_CLOSE);
         this.mascota=mascota;
     }
+    
+    
     public MiPetAPI api;
     
+    
+    
+    public void establecerDatos(){
+        Lista_Tipos.setSelectedItem(-1);
+        InformacionMenu.setText("Menú para agregar Mascota");
+        Field_Nombre.setText("");
+        Combo_Sexo.setSelectedItem(-1);
+        Check_Estado.setSelected(false);
+        Label_Rut.setText("");
+        Fecha_Nacimiento.setDateToToday();
+        
+    }
     
     public void establecerDatos(Mascota mascota){
         Lista_Tipos.setSelectedItem(mascota.getTipo().getDescripcion());
@@ -228,7 +244,12 @@ public class MascotaDatos extends javax.swing.JFrame {
 
     private void ResetearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ResetearMouseClicked
         // TODO add your handling code here:
-        establecerDatos(this.mascota);
+        if (this.mascota!=null){
+            establecerDatos(this.mascota);
+        }else{
+            establecerDatos();
+        }
+        
     }//GEN-LAST:event_ResetearMouseClicked
 
     /**

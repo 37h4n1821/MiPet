@@ -44,31 +44,55 @@ public class Inicio extends javax.swing.JFrame {
 }
     
     public void actualizar_datos() throws IOException{
+        DefaultTableModel DT=null;
         
-        api=new MiPetAPI("http://127.0.0.1","/API/Mascota");
-        DefaultTableModel DT=new NoEditableTableModel();
-        DT.addColumn("Nombre Mascota");
-        DT.addColumn("Tipo Mascota");
-        DT.addColumn("Rut Cliente");
-        DT.addColumn("Estado");
-        DT.addColumn("Editar");
-        DT.addColumn("Eliminar");
-        
-        Object[] fila=new Object[6];
-        for (Mascota mascota:api.ObtenerMascotas()) { 
-            fila[0]=mascota.getNombre();
-            fila[1]=mascota.getTipo().getDescripcion();
-            fila[2]=mascota.getCliente().getRut()+"-"+mascota.getCliente().getDv();
-            fila[3]=((mascota.isVigente())? "Vigente":"No vigente");
-            fila[4]=("Editar");
-            fila[5]=("Eliminar");
-            
-            DT.addRow(fila);
+        if (DatosCombo.getSelectedItem()=="Mascotas"){
+            api=new MiPetAPI("http://127.0.0.1","/API/Mascota");
+            DT=new NoEditableTableModel();
+            DT.addColumn("Nombre Mascota");
+            DT.addColumn("Tipo Mascota");
+            DT.addColumn("Rut Cliente");
+            DT.addColumn("Estado");
+            DT.addColumn("Editar");
+            DT.addColumn("Eliminar");
+
+            Object[] fila=new Object[6];
+            for (Mascota mascota:api.ObtenerMascotas()) { 
+                fila[0]=mascota.getNombre();
+                fila[1]=mascota.getTipo().getDescripcion();
+                fila[2]=mascota.getCliente().getRut()+"-"+mascota.getCliente().getDv();
+                fila[3]=((mascota.isVigente())? "Vigente":"No vigente");
+                fila[4]=("Editar");
+                fila[5]=("Eliminar");
+
+                DT.addRow(fila);
+            }
+        }else{
+            api=new MiPetAPI("http://127.0.0.1","/API/Cliente");
+            DT=new NoEditableTableModel();
+            DT.addColumn("Nombre");
+            DT.addColumn("Apellidos");
+            DT.addColumn("Rut");
+            DT.addColumn("Cantidad Mascotas Asociadas");
+
+            Object[] fila=new Object[4];
+            for (Cliente cliente:api.ObtenerClientes()) { 
+                fila[0]=cliente.getNombre();
+                fila[1]=cliente.getApe1()!=null?cliente.getApe1():""+" "+cliente.getApe2()!=null?cliente.getApe2():"";
+                fila[2]=cliente.getRut()+"-"+cliente.getDv();
+                fila[3]=api.CantidadMascotas(cliente);
+
+                DT.addRow(fila);
+            }
         }
         
+        
         jTable1.setModel(DT);
-        ButtonColumn buttonColumn = new ButtonColumn(jTable1, Editar, 4);
-        ButtonColumn buttonColumn2 = new ButtonColumn(jTable1, Eliminar, 5);
+        if (DatosCombo.getSelectedItem()=="Mascotas"){
+            ButtonColumn buttonColumn = new ButtonColumn(jTable1, Editar, 4);
+            ButtonColumn buttonColumn2 = new ButtonColumn(jTable1, Eliminar, 5);
+        }
+        
         
     }
     
@@ -136,8 +160,9 @@ public class Inicio extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        AddBoton = new javax.swing.JButton();
         Actualizar = new javax.swing.JButton();
+        DatosCombo = new javax.swing.JComboBox<>();
 
         jPasswordField1.setText("jPasswordField1");
 
@@ -160,12 +185,24 @@ public class Inicio extends javax.swing.JFrame {
         jLabel1.setText("Bienvenido a MiPet");
         jLabel1.setToolTipText("");
 
-        jButton1.setText("Agregar Mascota");
+        AddBoton.setText("Agregar Mascota");
+        AddBoton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                AddBotonMouseClicked(evt);
+            }
+        });
 
         Actualizar.setText("Actualizar Lista");
         Actualizar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ActualizarMouseClicked(evt);
+            }
+        });
+
+        DatosCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mascotas", "Clientes" }));
+        DatosCombo.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                DatosComboItemStateChanged(evt);
             }
         });
 
@@ -178,12 +215,14 @@ public class Inicio extends javax.swing.JFrame {
                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(38, 38, 38)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jButton1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(Actualizar))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 713, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(DatosCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(AddBoton)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(Actualizar))
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 713, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 79, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -192,11 +231,13 @@ public class Inicio extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(DatosCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(AddBoton)
                     .addComponent(Actualizar))
                 .addGap(10, 10, 10))
         );
@@ -228,6 +269,37 @@ public class Inicio extends javax.swing.JFrame {
             Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_ActualizarMouseClicked
+
+    private void DatosComboItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_DatosComboItemStateChanged
+        try {
+            // TODO add your handling code here:
+            actualizar_datos();
+            
+            if (DatosCombo.getSelectedItem()=="Mascotas"){
+                AddBoton.setText("Agregar Mascota");
+            }else{
+                AddBoton.setText("Agregar Cliente");
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_DatosComboItemStateChanged
+
+    private void AddBotonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AddBotonMouseClicked
+        // TODO add your handling code here:
+        try {
+        if (DatosCombo.getSelectedItem()=="Mascotas"){
+            MascotaDatos formulario2 = new MascotaDatos();
+            formulario2.setVisible(true);
+            this.setEnabled(false);
+            
+        }else{
+            
+        }
+        } catch (IOException ex) {
+            Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_AddBotonMouseClicked
 
     /**
      * @param args the command line arguments
@@ -270,7 +342,8 @@ public class Inicio extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Actualizar;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton AddBoton;
+    private javax.swing.JComboBox<String> DatosCombo;
     private javax.swing.JEditorPane jEditorPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;

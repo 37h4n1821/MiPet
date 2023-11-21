@@ -20,6 +20,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -168,6 +169,34 @@ public class MiPetAPI {
             return null;
         }
         
+    }
+    
+    public int CantidadMascotas(Cliente cliente) throws IOException{
+        URL url = new URL(servidor + rutaAPI+"/cant/"+cliente.get_id());
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+        connection.setRequestMethod("GET");
+        connection.setRequestProperty("Accept", "text/plain");
+
+        int responseCode = connection.getResponseCode();
+
+        if (responseCode == HttpURLConnection.HTTP_OK) {
+            try (InputStream inputStream = connection.getInputStream();
+                 BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
+                StringBuilder response = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    response.append(line);
+                }
+
+                
+                String jsonResponse = response.toString();
+                
+                return Integer.parseInt(jsonResponse);
+            }
+        }
+        
+        return 0;
     }
     
     public boolean actualizar(Mascota sb) throws IOException {
