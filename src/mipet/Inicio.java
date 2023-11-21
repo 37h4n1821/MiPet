@@ -15,10 +15,14 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import net.coderazzi.filters.gui.AutoChoices;
 import net.coderazzi.filters.gui.TableFilterHeader;
+import net.coderazzi.filters.gui.TableFilterHeader.Position;
+import java.lang.Object;
+import javax.swing.JTable;
+
+
 
 /**
  *
@@ -29,16 +33,22 @@ public class Inicio extends javax.swing.JFrame {
     /**
      * Creates new form Inicio
      */
+    
+    private MiPetAPI api;
+    private TableFilterHeader filterHeader;
+    private DefaultTableModel DT;
+    
     public Inicio() throws IOException {
         initComponents();
         try {
             actualizar_datos();
+            filterHeader = new TableFilterHeader(jTable1,AutoChoices.ENABLED);
         } catch (IOException ex) {
             Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
-    public MiPetAPI api;
+    
     
     class NoEditableTableModel extends DefaultTableModel {
     @Override
@@ -48,7 +58,9 @@ public class Inicio extends javax.swing.JFrame {
 }
     
     public void actualizar_datos() throws IOException{
-        DefaultTableModel DT=null;
+        
+        JTable jTabletmp=new JTable();
+        
         
         if (DatosCombo.getSelectedItem()=="Mascotas"){
             api=new MiPetAPI("http://127.0.0.1","/API/Mascota");
@@ -101,12 +113,8 @@ public class Inicio extends javax.swing.JFrame {
         }else{
             ButtonColumn buttonColumn2 = new ButtonColumn(jTable1, Eliminar, 4);
         }
-        TableFilterHeader filterHeader = new TableFilterHeader(jTable1, AutoChoices.ENABLED);
 
 
-        
-        
-        
     }
     
     Action Editar = new AbstractAction() {
