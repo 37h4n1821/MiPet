@@ -16,8 +16,33 @@ public class FormCliente extends javax.swing.JFrame {
     /**
      * Creates new form Inicio
      */
+    
+    private Cliente cliente;
+    
     public FormCliente() {
         initComponents();
+        establecerDatos();
+        txtRut.setEnabled(true);
+        cliente = null;
+    }
+    
+    public FormCliente(Cliente cliente) {
+        initComponents();
+        establecerDatos(cliente);
+        txtRut.setEnabled(false);
+        this.cliente = cliente;
+    }
+    
+    public void establecerDatos(){
+        lblIngCli.setText("Menú para agregar Cliente");
+        txtRut.setText("");
+        txtNombre.setText("");
+    }
+    
+    public void establecerDatos(Cliente cliente) {
+        lblIngCli.setText("Informacion de: "+cliente.getNombre()+" "+cliente.getApe1());
+        txtRut.setText(cliente.getRut()+"-"+cliente.getDv());
+        txtNombre.setText(cliente.getNombre()+" "+cliente.getApe1()+" "+cliente.getApe2());
     }
 
     /**
@@ -36,9 +61,15 @@ public class FormCliente extends javax.swing.JFrame {
         lblNombre = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
         btnConfirmar = new javax.swing.JButton();
+        btnReset = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        txtRut.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtRutFocusLost(evt);
+            }
+        });
         txtRut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtRutActionPerformed(evt);
@@ -64,27 +95,36 @@ public class FormCliente extends javax.swing.JFrame {
             }
         });
 
+        btnReset.setText("Resetear");
+        btnReset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnResetActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(104, 104, 104)
-                .addComponent(lblIngCli)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnConfirmar)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(lblNombre)
                             .addComponent(lblRut))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtRut, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(32, 32, 32))
+                            .addComponent(txtRut, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblIngCli))
+                        .addGap(32, 32, 32))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnConfirmar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnReset)
+                        .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -98,9 +138,11 @@ public class FormCliente extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNombre)
                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(btnConfirmar)
-                .addContainerGap(11, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnConfirmar)
+                    .addComponent(btnReset))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -110,14 +152,14 @@ public class FormCliente extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -139,7 +181,7 @@ public class FormCliente extends javax.swing.JFrame {
         
         boolean flag = false;
         
-        Pattern pattern_rut = Pattern.compile("(\\d{2}\\.?\\d{3}\\.?\\d{3})-([\\dK])");
+        Pattern pattern_rut = Pattern.compile("(\\d{2}\\.?\\d{3}\\.?\\d{3})-?([\\dK])");
         Matcher matcher_rut = pattern_rut.matcher(rut);
         
         if (matcher_rut.matches()) {
@@ -152,7 +194,6 @@ public class FormCliente extends javax.swing.JFrame {
         }
         
         String[] nombreCompleto = nombre.split(" ");
-        
         if (nombreCompleto.length == 3 && flag) {
             Cliente test = new Cliente(run,dv,nombreCompleto[0],nombreCompleto[1],nombreCompleto[2]);
             
@@ -162,10 +203,31 @@ public class FormCliente extends javax.swing.JFrame {
             System.out.println(test.getNombre());
             System.out.println(test.getApe1());
             System.out.println(test.getApe2());
+            
+            // Actualizar / Subir datos ingresados
         } else if (flag) {
             JOptionPane.showMessageDialog(null, "           [Nombre invalido]\nEj: Nombre Apellido Apellido", "Error al ingresar", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnConfirmarActionPerformed
+
+    private void txtRutFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtRutFocusLost
+        String rut = txtRut.getText();
+        
+        Pattern pattern_rut = Pattern.compile("(\\d{2}\\.?\\d{3}\\.?\\d{3})-?([\\dK])");
+        Matcher matcher_rut = pattern_rut.matcher(rut);
+        
+        if (matcher_rut.matches()) {
+            txtRut.setText(rut.replaceAll("(\\d{2})(\\d{3})(\\d{3})(\\dK)", "$1.$2.$3-$4"));
+        }
+    }//GEN-LAST:event_txtRutFocusLost
+
+    private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
+        if (this.cliente!=null){
+            establecerDatos(this.cliente);
+        }else{
+            establecerDatos();
+        }
+    }//GEN-LAST:event_btnResetActionPerformed
 
     
     /**
@@ -206,6 +268,7 @@ public class FormCliente extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConfirmar;
+    private javax.swing.JButton btnReset;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblIngCli;
     private javax.swing.JLabel lblNombre;
