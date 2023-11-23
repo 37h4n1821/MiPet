@@ -9,6 +9,7 @@ import java.time.ZoneId;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import mipet.Modelo.Cliente;
 import mipet.Modelo.Mascota;
@@ -157,6 +158,11 @@ public class MascotaDatos extends javax.swing.JFrame {
                 ActualizarMouseClicked(evt);
             }
         });
+        Actualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ActualizarActionPerformed(evt);
+            }
+        });
 
         Resetear.setText("Resetear");
         Resetear.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -274,6 +280,19 @@ public class MascotaDatos extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_ResetearMouseClicked
+
+    private void ActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ActualizarActionPerformed
+        if (Field_Nombre.getText().isEmpty() || Fecha_Nacimiento.getText().isEmpty() || Combo_Sexo.getSelectedItem() == "" || Lista_Tipos.getSelectedItem() == "" || ComboDueños.getSelectedItem() == "") {
+            JOptionPane.showMessageDialog(null, "           [Ingreso invalido]\nNingún puede estar en blanco", "Error al ingresar", JOptionPane.ERROR_MESSAGE);
+        } else {
+            // Subir/actualizar datos
+            System.out.println(Field_Nombre.getText());
+            System.out.println(Fecha_Nacimiento.getText());
+            System.out.println(Check_Estado.isSelected());
+            System.out.println(Lista_Tipos.getSelectedItem());
+            System.out.println(ComboDueños.getSelectedItem());
+        }
+    }//GEN-LAST:event_ActualizarActionPerformed
 
     /**
      * @param args the command line arguments
