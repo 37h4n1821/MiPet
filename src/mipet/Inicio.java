@@ -83,7 +83,7 @@ public class Inicio extends javax.swing.JFrame {
 
                 DT.addRow(fila);
             }
-        }else{
+        }else if (DatosCombo.getSelectedItem()=="Clientes"){
             api=new MiPetAPI("http://127.0.0.1","/API/Cliente");
             DT=new NoEditableTableModel();
             DT.addColumn("Nombre");
@@ -102,6 +102,20 @@ public class Inicio extends javax.swing.JFrame {
 
                 DT.addRow(fila);
             }
+        }else{
+            api=new MiPetAPI("http://127.0.0.1","/API/Tipo_Mascota");
+            DT=new NoEditableTableModel();
+            DT.addColumn("Descripción");
+            DT.addColumn("Editar");
+            DT.addColumn("Eliminar");
+
+            Object[] fila=new Object[3];
+            for (Tipo_Mascota mascotatipo:api.ObtenerTipos()) { 
+                fila[0]=mascotatipo.getDescripcion();
+                fila[1]=("Editar");
+                fila[2]=("Eliminar");
+                DT.addRow(fila);
+            }
         }
         
         
@@ -110,7 +124,7 @@ public class Inicio extends javax.swing.JFrame {
         if (DatosCombo.getSelectedItem()=="Mascotas"){
             ButtonColumn buttonColumn = new ButtonColumn(jTable1, Editar, 4);
             ButtonColumn buttonColumn2 = new ButtonColumn(jTable1, Eliminar, 5);
-        }else{
+        }else if (DatosCombo.getSelectedItem()=="Clientes"){
             ButtonColumn buttonColumn2 = new ButtonColumn(jTable1, Eliminar, 4);
         }
 
@@ -248,7 +262,7 @@ public class Inicio extends javax.swing.JFrame {
             }
         });
 
-        DatosCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mascotas", "Clientes" }));
+        DatosCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mascotas", "Clientes", "Tipos Mascota" }));
         DatosCombo.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 DatosComboItemStateChanged(evt);
@@ -332,8 +346,10 @@ public class Inicio extends javax.swing.JFrame {
             
             if (DatosCombo.getSelectedItem()=="Mascotas"){
                 AddBoton.setText("Agregar Mascota");
-            }else{
+            }else if (DatosCombo.getSelectedItem()=="Clientes"){
                 AddBoton.setText("Agregar Cliente");
+            }else{
+                AddBoton.setText("Agregar tipo de mascota");
             }
         } catch (IOException ex) {
             Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
@@ -365,7 +381,7 @@ public class Inicio extends javax.swing.JFrame {
             formulario2.setVisible(true);
             blockthis();
             
-        }else{
+        }else if (DatosCombo.getSelectedItem()=="Clientes"){
             
         }
         } catch (IOException ex) {
