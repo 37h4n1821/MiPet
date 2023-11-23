@@ -209,7 +209,8 @@ public class FormCliente extends javax.swing.JFrame {
         
         if (matcher_rut.matches()) {
             run = matcher_rut.group(1).replaceAll("\\.", "");
-            dv = matcher_rut.group(2).charAt(0);
+            //dv = matcher_rut.group(2).charAt(0);
+            dv ='K';
             
             rut_match = true;
         } else {
