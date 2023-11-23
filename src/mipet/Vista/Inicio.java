@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package mipet;
+package mipet.Vista;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,6 +21,11 @@ import net.coderazzi.filters.gui.TableFilterHeader;
 import net.coderazzi.filters.gui.TableFilterHeader.Position;
 import java.lang.Object;
 import javax.swing.JTable;
+import mipet.Controlador.ButtonColumn;
+import mipet.Modelo.Cliente;
+import mipet.Modelo.Mascota;
+import mipet.Controlador.MiPetAPI;
+import mipet.Modelo.Tipo_Mascota;
 
 
 

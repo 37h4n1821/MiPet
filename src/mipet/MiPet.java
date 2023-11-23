@@ -4,6 +4,7 @@
  */
 package mipet;
 
+import mipet.Vista.Inicio;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,9 +30,6 @@ public class MiPet {
                 } catch (IOException ex) {
                     Logger.getLogger(MiPet.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                
-                
-                
             }
         });
     }

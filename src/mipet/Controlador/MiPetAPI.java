@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package mipet;
+package mipet.Controlador;
 
 /**
  *
@@ -10,6 +10,9 @@ package mipet;
  */
 
 
+import mipet.Modelo.Mascota;
+import mipet.Modelo.Tipo_Mascota;
+import mipet.Modelo.Cliente;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.io.BufferedReader;
