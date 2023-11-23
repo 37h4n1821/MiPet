@@ -251,6 +251,7 @@ public class FormCliente extends javax.swing.JFrame {
         Matcher matcher_rut = pattern_rut.matcher(rut);
         
         if (matcher_rut.matches()) {
+            System.out.println("218021131".replaceAll("(\\d{2})(\\d{3})(\\d{3})(\\dK)", "$1.$2.$3-$4"));
             txtRut.setText(rut.replaceAll("(\\d{2})(\\d{3})(\\d{3})(\\dK)", "$1.$2.$3-$4"));
         }
     }//GEN-LAST:event_txtRutFocusLost
