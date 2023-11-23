@@ -23,6 +23,7 @@ public class FormCliente extends javax.swing.JFrame {
     public FormCliente() {
         initComponents();
         establecerDatos();
+        setDefaultCloseOperation(FormCliente.DISPOSE_ON_CLOSE);
         txtRut.setEnabled(true);
         cliente = null;
     }
@@ -30,6 +31,7 @@ public class FormCliente extends javax.swing.JFrame {
     public FormCliente(Cliente cliente) {
         initComponents();
         establecerDatos(cliente);
+        setDefaultCloseOperation(FormCliente.DISPOSE_ON_CLOSE);
         txtRut.setEnabled(false);
         this.cliente = cliente;
     }
