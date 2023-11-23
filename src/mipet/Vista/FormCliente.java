@@ -207,7 +207,7 @@ public class FormCliente extends javax.swing.JFrame {
         
         boolean rut_match = false;
         
-        Pattern pattern_rut = Pattern.compile("(\\d{2}\\.?\\d{3}\\.?\\d{3})-?([\\dK])");
+        Pattern pattern_rut = Pattern.compile("(\\d{2}\\.?\\d{3}\\.?\\d{3})-?([\\dKk])");
         Matcher matcher_rut = pattern_rut.matcher(rut);
         
         if (matcher_rut.matches()) {
@@ -247,12 +247,28 @@ public class FormCliente extends javax.swing.JFrame {
     private void txtRutFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtRutFocusLost
         String rut = txtRut.getText();
         
-        Pattern pattern_rut = Pattern.compile("(\\d{2}\\.?\\d{3}\\.?\\d{3})-?([\\dK])");
+        Pattern pattern_rut = Pattern.compile("(\\d{2}\\.?\\d{3}\\.?\\d{3})-?([\\dKk])");
         Matcher matcher_rut = pattern_rut.matcher(rut);
         
         if (matcher_rut.matches()) {
-            System.out.println("218021131".replaceAll("(\\d{2})(\\d{3})(\\d{3})(\\dK)", "$1.$2.$3-$4"));
-            txtRut.setText(rut.replaceAll("(\\d{2})(\\d{3})(\\d{3})(\\dK)", "$1.$2.$3-$4"));
+            rut = rut.replaceAll("[^0-9Kk]", "");
+            
+            String parteNumerica = rut.substring(0, rut.length() - 1);
+            String digitoVerificador = rut.substring(rut.length() - 1).toUpperCase();
+
+            StringBuilder rutFormateado = new StringBuilder();
+            int contador = 0;
+            for (int i = parteNumerica.length() - 1; i >= 0; i--) {
+                rutFormateado.insert(0, parteNumerica.charAt(i));
+                contador++;
+                if (contador == 3 && i > 0) {
+                    rutFormateado.insert(0, ".");
+                    contador = 0;
+                }
+            }
+
+            rutFormateado.append("-").append(digitoVerificador);
+            txtRut.setText(rutFormateado.toString());
         }
     }//GEN-LAST:event_txtRutFocusLost
 
