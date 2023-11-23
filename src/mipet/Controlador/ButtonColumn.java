@@ -16,9 +16,10 @@
  * You should have received a copy of the GNU General Public License
  * along with JavaSnoop.  If not, see <http://www.gnu.org/licenses/>.
  */
-package mipet;
+package mipet.Controlador;
 
 
+import mipet.Modelo.Mascota;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
