@@ -382,6 +382,17 @@ public class Inicio extends javax.swing.JFrame {
             blockthis();
             
         }else if (DatosCombo.getSelectedItem()=="Clientes"){
+            FormCliente formulario2 = new FormCliente();
+            formulario2.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosing(WindowEvent e) {
+                    cerrarsubFormulario();
+                }
+            });
+            
+            formulario2.setVisible(true);
+            blockthis();
+        }else{
             
         }
         } catch (IOException ex) {
