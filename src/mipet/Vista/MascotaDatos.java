@@ -283,7 +283,7 @@ public class MascotaDatos extends javax.swing.JFrame {
 
     private void ActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ActualizarActionPerformed
         if (Field_Nombre.getText().isEmpty() || Fecha_Nacimiento.getText().isEmpty() || Combo_Sexo.getSelectedItem() == "" || Lista_Tipos.getSelectedItem() == "" || ComboDueños.getSelectedItem() == "") {
-            JOptionPane.showMessageDialog(null, "           [Ingreso invalido]\nNingún puede estar en blanco", "Error al ingresar", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "           [Ingreso inválido]\nNingún puede estar en blanco", "Error al ingresar", JOptionPane.ERROR_MESSAGE);
         } else {
             // Subir/actualizar datos
             System.out.println(Field_Nombre.getText());

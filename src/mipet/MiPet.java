@@ -22,8 +22,7 @@ public class MiPet {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
-            public void run() {
-                Inicio formulario1;
+            public void run() {Inicio formulario1;
                 try {
                     formulario1 = new Inicio();
                     formulario1.setVisible(true);

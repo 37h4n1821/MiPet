@@ -24,9 +24,9 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="jPanel1" pref="288" max="32767" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -46,44 +46,53 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="lblNombre" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="lblRut" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="lblApellidoP" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="lblApellidoM" alignment="1" min="-2" max="-2" attributes="0"/>
+              <Group type="102" attributes="0">
+                  <EmptySpace min="21" pref="21" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="btnConfirmar" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="btnReset" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Group type="103" groupAlignment="1" attributes="0">
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Component id="lblApellidoM" alignment="1" max="32767" attributes="0"/>
+                                              <Component id="lblRut" alignment="1" max="32767" attributes="0"/>
+                                          </Group>
+                                          <Component id="lblNombre" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Component id="lblApellidoP" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="txtNombre" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="txtApellidoM" max="32767" attributes="0"/>
+                                      <Component id="txtApellidoP" pref="150" max="32767" attributes="0"/>
+                                      <Component id="txtRut" alignment="0" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
                           </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="txtNombre" alignment="0" max="32767" attributes="0"/>
-                              <Component id="txtApellidoM" max="32767" attributes="0"/>
-                              <Component id="txtApellidoP" pref="150" max="32767" attributes="0"/>
-                              <Component id="txtRut" alignment="0" max="32767" attributes="0"/>
-                          </Group>
+                          <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                       </Group>
-                      <Group type="102" attributes="0">
-                          <Component id="btnConfirmar" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <Component id="lblIngCli" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="btnReset" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace min="-2" pref="82" max="-2" attributes="0"/>
-              </Group>
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
-                  <Component id="lblIngCli" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Component id="lblIngCli" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="txtRut" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lblRut" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -103,7 +112,7 @@
                       <Component id="lblApellidoM" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="txtApellidoM" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="23" max="32767" attributes="0"/>
+                  <EmptySpace pref="30" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btnConfirmar" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnReset" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -122,7 +131,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lblRut">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Rut"/>
+            <Property name="text" type="java.lang.String" value="Rut:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblIngCli">
@@ -132,7 +141,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lblNombre">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Nombre"/>
+            <Property name="text" type="java.lang.String" value="Nombre:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtNombre">
@@ -158,12 +167,12 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lblApellidoP">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Apellido Paterno"/>
+            <Property name="text" type="java.lang.String" value="Apellido Paterno:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblApellidoM">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Apellido Materno"/>
+            <Property name="text" type="java.lang.String" value="Apellido Materno:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtApellidoM">

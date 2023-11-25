@@ -83,11 +83,11 @@ public class FormCliente extends javax.swing.JFrame {
             }
         });
 
-        lblRut.setText("Rut");
+        lblRut.setText("Rut:");
 
         lblIngCli.setText("Ingreso Cliente");
 
-        lblNombre.setText("Nombre");
+        lblNombre.setText("Nombre:");
 
         txtNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -109,44 +109,47 @@ public class FormCliente extends javax.swing.JFrame {
             }
         });
 
-        lblApellidoP.setText("Apellido Paterno");
+        lblApellidoP.setText("Apellido Paterno:");
 
-        lblApellidoM.setText("Apellido Materno");
+        lblApellidoM.setText("Apellido Materno:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(21, 21, 21)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblNombre, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblRut, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblApellidoP, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblApellidoM, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addComponent(btnConfirmar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnReset))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(lblApellidoM, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lblRut, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(lblNombre, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addComponent(lblApellidoP, javax.swing.GroupLayout.Alignment.LEADING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtNombre)
                             .addComponent(txtApellidoM)
                             .addComponent(txtApellidoP, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                            .addComponent(txtRut)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnConfirmar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnReset)))
-                .addGap(82, 82, 82))
+                            .addComponent(txtRut))))
+                .addGap(21, 21, 21))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(65, 65, 65)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblIngCli)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(lblIngCli)
-                .addGap(26, 26, 26)
+                .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtRut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblRut))
@@ -162,7 +165,7 @@ public class FormCliente extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblApellidoM)
                     .addComponent(txtApellidoM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnConfirmar)
                     .addComponent(btnReset))
@@ -175,8 +178,8 @@ public class FormCliente extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -217,7 +220,7 @@ public class FormCliente extends javax.swing.JFrame {
             
             rut_match = true;
         } else {
-            JOptionPane.showMessageDialog(null, "           [Rut invalido]\nEj: 12.345.678-K", "Error al ingresar", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "           [Rut inválido]\nEj: 12.345.678-K", "Error al ingresar", JOptionPane.ERROR_MESSAGE);
         }
         
         if (rut_match && !nombre.isEmpty() && (!apellidoP.isEmpty() || !apellidoM.isEmpty())) {
@@ -237,10 +240,10 @@ public class FormCliente extends javax.swing.JFrame {
 
                 // Actualizar / Subir datos ingresados
             } else {
-                JOptionPane.showMessageDialog(null, "           [Nombre invalido]\nEl nombre/apellidos no son validos", "Error al ingresar", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "           [Nombre inválido]\nEl nombre/apellidos no son validos", "Error al ingresar", JOptionPane.ERROR_MESSAGE);
             }
         } else if (rut_match) {
-            JOptionPane.showMessageDialog(null, "           [Nombre invalido]\nDebe tener nombre y al menos 1 apellido", "Error al ingresar", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "           [Nombre inválido]\nDebe tener nombre y al menos 1 apellido", "Error al ingresar", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
