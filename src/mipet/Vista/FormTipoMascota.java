@@ -36,7 +36,7 @@ public class FormTipoMascota extends javax.swing.JFrame {
     }
     
     public void establecerDatos(){
-        lblTittle.setText("Menú para agregar tipo de mascota");
+        lblTittle.setText("Información del tipo de mascota");
         txtCode.setText("");
         txtDesc.setText("");
     }
@@ -66,6 +66,7 @@ public class FormTipoMascota extends javax.swing.JFrame {
         btnReset = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Formulario");
         setResizable(false);
 
         lblTittle.setText("Ingreso Tipo");

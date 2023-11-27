@@ -237,6 +237,7 @@ public class Inicio extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jEditorPane1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("MiConnect");
         setResizable(false);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(

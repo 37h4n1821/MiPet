@@ -127,6 +127,7 @@ public class MascotaDatos extends javax.swing.JFrame {
         TxtDueño = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Formulario");
         setResizable(false);
 
         InformacionMenu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);

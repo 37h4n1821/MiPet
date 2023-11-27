@@ -37,7 +37,7 @@ public class FormCliente extends javax.swing.JFrame {
     }
     
     public void establecerDatos(){
-        lblIngCli.setText("Menú para agregar Cliente");
+        lblIngCli.setText("Información del cliente");
         txtRut.setText("");
         txtNombre.setText("");
     }
@@ -71,6 +71,7 @@ public class FormCliente extends javax.swing.JFrame {
         txtApellidoP = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Formulario");
         setResizable(false);
 
         txtRut.addFocusListener(new java.awt.event.FocusAdapter() {
