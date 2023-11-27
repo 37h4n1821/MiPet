@@ -127,6 +127,7 @@ public class MascotaDatos extends javax.swing.JFrame {
         TxtDueño = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         InformacionMenu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         InformacionMenu.setText("Información de: ");
@@ -259,6 +260,7 @@ public class MascotaDatos extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void Check_EstadoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_Check_EstadoItemStateChanged

@@ -66,6 +66,7 @@ public class FormTipoMascota extends javax.swing.JFrame {
         btnReset = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         lblTittle.setText("Ingreso Tipo");
 
@@ -149,6 +150,7 @@ public class FormTipoMascota extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
@@ -169,7 +171,7 @@ public class FormTipoMascota extends javax.swing.JFrame {
             
             // Actualizar / Subir datos ingresados
         } else {
-            JOptionPane.showMessageDialog(null, "                         [Ingreso inválido]\nEl codigo/descripción no pueden estar en blanco", "Error al ingresar", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "                         [Ingreso inválido]\nEl codigo o descripción no pueden estar en blanco", "Error al ingresar", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
