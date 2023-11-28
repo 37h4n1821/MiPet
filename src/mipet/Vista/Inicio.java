@@ -60,6 +60,18 @@ public class Inicio extends javax.swing.JFrame {
     public boolean isCellEditable(int row, int column) {
         return column==4 || column==5;
     }
+    
+    
+    
+}
+    class NoEditableTableModel2 extends DefaultTableModel {
+    @Override
+    public boolean isCellEditable(int row, int column) {
+        return column==1 || column==2;
+    }
+    
+    
+    
 }
     
     public void actualizar_datos() throws IOException{
@@ -109,7 +121,7 @@ public class Inicio extends javax.swing.JFrame {
             }
         }else{
             api=new MiPetAPI("http://127.0.0.1","/API/Tipo_Mascota");
-            DT=new NoEditableTableModel();
+            DT=new NoEditableTableModel2();
             DT.addColumn("Descripción");
             DT.addColumn("Editar");
             DT.addColumn("Eliminar");
@@ -131,6 +143,9 @@ public class Inicio extends javax.swing.JFrame {
             ButtonColumn buttonColumn2 = new ButtonColumn(jTable1, Eliminar, 5);
         }else if (DatosCombo.getSelectedItem()=="Clientes"){
             ButtonColumn buttonColumn2 = new ButtonColumn(jTable1, Eliminar, 4);
+        }else{
+            ButtonColumn buttonColumn = new ButtonColumn(jTable1, Editar, 1);
+            ButtonColumn buttonColumn2 = new ButtonColumn(jTable1, Eliminar, 2);
         }
 
 
@@ -182,16 +197,44 @@ public class Inicio extends javax.swing.JFrame {
                    JOptionPane.QUESTION_MESSAGE);
                 if(result == JOptionPane.YES_OPTION){
                    JOptionPane.showMessageDialog(null, "Eliminado información");
+                   if (new MiPetAPI("http://127.0.0.1","/API/Mascota/del").eliminar(mascota)){
+                       JOptionPane.showMessageDialog(null, "Eliminado");
+                       actualizar_datos();
+                   }else{
+                    JOptionPane.showMessageDialog(null, "Error al eliminar");
+                    }
                 }else if (result == JOptionPane.NO_OPTION){
                    JOptionPane.showMessageDialog(null, "Entendido no se eliminara información");
                 }
-            }else{
+            }else if (DatosCombo.getSelectedItem()=="Clientes"){
                 Cliente cliente=new MiPetAPI("http://127.0.0.1","/API/Cliente").ObtenerClientes().get(modelRow);
                 int result = JOptionPane.showConfirmDialog(null,"Deseas Eliminar toda información de: "+cliente.getNombre()+"\nAdemás se eliminaran todas las mascotas asociadas", "Eliminación Mascota",
                    JOptionPane.YES_NO_OPTION,
                    JOptionPane.QUESTION_MESSAGE);
                 if(result == JOptionPane.YES_OPTION){
                    JOptionPane.showMessageDialog(null, "Eliminado información");
+                   if (new MiPetAPI("http://127.0.0.1","/API/Cliente/del").eliminar(cliente)){
+                       JOptionPane.showMessageDialog(null, "Eliminado");
+                       actualizar_datos();
+                   }else{
+                    JOptionPane.showMessageDialog(null, "Error al eliminar");
+                    }
+                }else if (result == JOptionPane.NO_OPTION){
+                   JOptionPane.showMessageDialog(null, "Entendido no se eliminara información");
+                }
+            }else{
+                Tipo_Mascota cliente=new MiPetAPI("http://127.0.0.1","/API/Tipo_Mascota").ObtenerTipos().get(modelRow);
+                int result = JOptionPane.showConfirmDialog(null,"Deseas Eliminar toda información de: "+cliente.getDescripcion()+"\nAdemás se eliminaran todas las mascotas asociadas", "Eliminación Mascota",
+                   JOptionPane.YES_NO_OPTION,
+                   JOptionPane.QUESTION_MESSAGE);
+                if(result == JOptionPane.YES_OPTION){
+                   JOptionPane.showMessageDialog(null, "Eliminado información");
+                   if (new MiPetAPI("http://127.0.0.1","/API/Tipo_Mascota/del").eliminar(cliente)){
+                       JOptionPane.showMessageDialog(null, "Eliminado");
+                       actualizar_datos();
+                   }else{
+                    JOptionPane.showMessageDialog(null, "Error al eliminar");
+                    }
                 }else if (result == JOptionPane.NO_OPTION){
                    JOptionPane.showMessageDialog(null, "Entendido no se eliminara información");
                 }
@@ -401,7 +444,16 @@ public class Inicio extends javax.swing.JFrame {
             formulario2.setVisible(true);
             blockthis();
         }else{
+            FormTipoMascota formulario2 = new FormTipoMascota();
+            formulario2.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosing(WindowEvent e) {
+                    cerrarsubFormulario();
+                }
+            });
             
+            formulario2.setVisible(true);
+            blockthis();
         }
         } catch (IOException ex) {
             Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);

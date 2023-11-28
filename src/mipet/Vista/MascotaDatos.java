@@ -5,7 +5,10 @@
 package mipet.Vista;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.ZoneId;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
@@ -287,13 +290,49 @@ public class MascotaDatos extends javax.swing.JFrame {
     private void ActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ActualizarActionPerformed
         if (Field_Nombre.getText().isEmpty() || Fecha_Nacimiento.getText().isEmpty() || Combo_Sexo.getSelectedItem() == "" || Lista_Tipos.getSelectedItem() == "" || ComboDueños.getSelectedItem() == "") {
             JOptionPane.showMessageDialog(null, "           [Ingreso inválido]\nNingún puede estar en blanco", "Error al ingresar", JOptionPane.ERROR_MESSAGE);
+            return;
         } else {
             // Subir/actualizar datos
             System.out.println(Field_Nombre.getText());
             System.out.println(Fecha_Nacimiento.getText());
             System.out.println(Check_Estado.isSelected());
+            System.out.println(Combo_Sexo.getSelectedItem());
             System.out.println(Lista_Tipos.getSelectedItem());
             System.out.println(ComboDueños.getSelectedItem());
+        }
+        
+        if (this.mascota==null){
+            try {
+                System.out.println("Entro");
+                String n=Field_Nombre.getText();
+                String fecha=Fecha_Nacimiento.getText();
+                boolean estado=Check_Estado.isSelected();
+                System.out.println(estado);
+                String s=(String) Combo_Sexo.getSelectedItem();
+                System.out.println(s);
+                char s_=s.charAt(0);
+                
+                SimpleDateFormat formato = new SimpleDateFormat("dd 'de' MMMM 'de' yyyy"); 
+                Date fecha2 = formato.parse(fecha);
+                
+                System.out.println(fecha2);
+                Cliente cl=new MiPetAPI("http://127.0.0.1","/API/Cliente").ObtenerClientes().get(ComboDueños.getSelectedIndex());
+                Tipo_Mascota tp=new MiPetAPI("http://127.0.0.1","/API/Tipo_Mascota").ObtenerTipos().get(Lista_Tipos.getSelectedIndex());
+                System.out.println(cl);
+                System.out.println(tp);
+                if (new MiPetAPI("http://127.0.0.1","/API/Mascota/up").enviar(new Mascota(n,fecha2,s_,estado,tp,cl))){
+                    JOptionPane.showMessageDialog(null, "Agregado");
+                }else{
+                    JOptionPane.showMessageDialog(null, "Error al agregar");
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(MascotaDatos.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "Error al agregar");
+            } catch (ParseException ex) {
+                Logger.getLogger(MascotaDatos.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+            
         }
     }//GEN-LAST:event_ActualizarActionPerformed
 

@@ -19,6 +19,14 @@ public class Cliente {
     public Cliente() {
     }
     
+    public Cliente(String rut, char dv) {
+        this.rut = rut;
+        this.dv = dv;
+        this.nombre = null;
+        this.ape1 = null;
+        this.ape2 = null;
+    }
+    
     public Cliente(String rut, char dv, String nombre, String ape1, String ape2) {
         this.rut = rut;
         this.dv = dv;

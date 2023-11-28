@@ -4,10 +4,15 @@
  */
 package mipet.Vista;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
+import mipet.Controlador.MiPetAPI;
 import mipet.Modelo.Cliente;
+import mipet.Modelo.Mascota;
 
 /**
  *
@@ -235,6 +240,17 @@ public class FormCliente extends javax.swing.JFrame {
             
             if (nCount == 1 && apCount == 1 && amCount == 1) {
                 Cliente test = new Cliente(run,dv,nombre,apellidoP,apellidoM);
+                
+                try {
+                    if (new MiPetAPI("http://127.0.0.1","/API/Cliente/up").enviar(test)){
+                        JOptionPane.showMessageDialog(null, "Agregado");
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Error al agregar");
+                    }
+                } catch (IOException ex) {
+                    Logger.getLogger(FormCliente.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null, "Error al agregar");
+                }
             
                 // Test temporal
                 System.out.println(test.getRut());

@@ -4,7 +4,11 @@
  */
 package mipet.Vista;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import mipet.Controlador.MiPetAPI;
 import mipet.Modelo.Tipo_Mascota;
 
 /**
@@ -165,6 +169,17 @@ public class FormTipoMascota extends javax.swing.JFrame {
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
         if (!txtCode.getText().replace(" ","").isEmpty() && !txtDesc.getText().replace(" ","").isEmpty()) {
             Tipo_Mascota test = new Tipo_Mascota(txtCode.getText(), txtDesc.getText());
+            
+            try {
+                    if (new MiPetAPI("http://127.0.0.1","/API/Tipo_Mascota/up").enviar(test)){
+                        JOptionPane.showMessageDialog(null, "Agregado");
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Error al agregar");
+                    }
+                } catch (IOException ex) {
+                    Logger.getLogger(FormCliente.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null, "Error al agregar");
+                }
             
             // Test temporal
             System.out.println(test.get_id());

@@ -71,6 +71,61 @@ public class MiPetAPI {
     }
     
     
+    public boolean enviar(Cliente mascota) throws IOException {
+        
+        URL url = new URL(servidor + rutaAPI);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+        connection.setRequestMethod("POST");
+        connection.setDoOutput(true);
+        connection.setRequestProperty("Content-Type", "application/json");
+
+        try (OutputStream os = connection.getOutputStream();
+             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"))) {
+            
+            Gson gson = new Gson();
+            String objetoJSON = gson.toJson(mascota);
+            System.out.println(objetoJSON);
+            writer.write(objetoJSON);
+        }
+
+        int responseCode = connection.getResponseCode();
+        
+        if (responseCode==200){
+            return true;
+        }
+        return false;
+        
+    }
+    
+    
+    public boolean enviar(Tipo_Mascota mascota) throws IOException {
+        
+        URL url = new URL(servidor + rutaAPI);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+        connection.setRequestMethod("POST");
+        connection.setDoOutput(true);
+        connection.setRequestProperty("Content-Type", "application/json");
+
+        try (OutputStream os = connection.getOutputStream();
+             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"))) {
+            
+            Gson gson = new Gson();
+            String objetoJSON = gson.toJson(mascota);
+            System.out.println(objetoJSON);
+            writer.write(objetoJSON);
+        }
+
+        int responseCode = connection.getResponseCode();
+        
+        if (responseCode==200){
+            return true;
+        }
+        return false;
+        
+    }
+    
     
     public ArrayList<Mascota> ObtenerMascotas() throws IOException {
         
@@ -231,11 +286,69 @@ public class MiPetAPI {
     
     public boolean eliminar(Mascota sb) throws IOException {
         
-        URL url = new URL(servidor + rutaAPI+"/del/"+sb.get_id());
+        URL url = new URL(servidor + rutaAPI);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
-        connection.setRequestMethod("GET");
-        connection.setRequestProperty("Accept", "application/json");
+        connection.setRequestMethod("POST");
+        connection.setDoOutput(true);
+        connection.setRequestProperty("Content-Type", "application/json");
+
+        try (OutputStream os = connection.getOutputStream();
+             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"))) {
+            
+            Gson gson = new Gson();
+            String objetoJSON = gson.toJson(sb);
+            System.out.println(objetoJSON);
+            writer.write(objetoJSON);
+        }
+
+        int responseCode = connection.getResponseCode();
+
+        return (responseCode == HttpURLConnection.HTTP_OK);
+        
+    }
+    
+    public boolean eliminar(Cliente sb) throws IOException {
+        
+        URL url = new URL(servidor + rutaAPI);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+        connection.setRequestMethod("POST");
+        connection.setDoOutput(true);
+        connection.setRequestProperty("Content-Type", "application/json");
+
+        try (OutputStream os = connection.getOutputStream();
+             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"))) {
+            
+            Gson gson = new Gson();
+            String objetoJSON = gson.toJson(sb);
+            System.out.println(objetoJSON);
+            writer.write(objetoJSON);
+        }
+
+        int responseCode = connection.getResponseCode();
+
+        return (responseCode == HttpURLConnection.HTTP_OK);
+        
+    }
+    
+    public boolean eliminar(Tipo_Mascota sb) throws IOException {
+        
+        URL url = new URL(servidor + rutaAPI);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+        connection.setRequestMethod("POST");
+        connection.setDoOutput(true);
+        connection.setRequestProperty("Content-Type", "application/json");
+
+        try (OutputStream os = connection.getOutputStream();
+             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"))) {
+            
+            Gson gson = new Gson();
+            String objetoJSON = gson.toJson(sb);
+            System.out.println(objetoJSON);
+            writer.write(objetoJSON);
+        }
 
         int responseCode = connection.getResponseCode();
 

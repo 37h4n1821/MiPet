@@ -21,7 +21,17 @@ public class Mascota {
 
     public Mascota() {
     }
-
+    
+    public Mascota(String nombre, Date fec_nac, char sexo, boolean vigente, Tipo_Mascota tipo, Cliente cliente) {
+        this._id = null;
+        this.nombre = nombre;
+        this.fec_nac = fec_nac;
+        this.sexo = sexo;
+        this.vigente = vigente;
+        this.tipo = tipo;
+        this.cliente = cliente;
+    }
+    
     public Mascota(String _id, String nombre, Date fec_nac, char sexo, boolean vigente, Tipo_Mascota tipo, Cliente cliente) {
         this._id = _id;
         this.nombre = nombre;
